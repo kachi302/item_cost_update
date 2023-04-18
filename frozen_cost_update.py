@@ -31,7 +31,7 @@ try:
             for row_f in ws.iter_rows():
                 rec += 1
                 start = time.time()
-                item_code = row_f[0].value
+                item_code = str(row_f[0].value)
                 cost_type = 'Pending'
                 x = dt.datetime.now()                
                 # print(x.strftime('%Y%m%d%H%M'))
