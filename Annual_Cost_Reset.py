@@ -64,7 +64,7 @@ try:
             if running == False:
                 break            
             
-            for cell in row:            
+            for cell in row:             # type: ignore
                         
                 if len(cell.value) == 0 :
                     running = False
@@ -102,7 +102,7 @@ try:
                     # find button click
                     # fi = pyautogui.locateOnScreen(resource_path(r'images\find.png'), confidence=0.7)
                     fi = pyautogui.locateOnScreen(r'.\images\find.png')
-                    fic = pyautogui.center(fi)
+                    fic = pyautogui.center(fi) # type: ignore
                     pyautogui.click(fic)                    
                     time.sleep(1)      
                     # cost 화면 load     
@@ -177,7 +177,7 @@ try:
                                 time.sleep(0.9)
                                 # cost_btn = pyautogui.locateOnScreen(resource_path(r'images\costs_btn.png'))
                                 cost_btn = pyautogui.locateOnScreen(r'.\images\costs_btn.png')
-                                cost_btn_center=pyautogui.center(cost_btn)
+                                cost_btn_center=pyautogui.center(cost_btn) # type: ignore
                                 pyautogui.click(cost_btn_center)
                                 time.sleep(0.9)                               
                                 pyautogui.write(cost_element1, interval=0.1)
@@ -247,7 +247,7 @@ try:
     wb.active = ws
     wb.save(r'.\data\ANNUAL_list_JOB.xlsx')               
 except Exception as e:
-    wb.active = ws
-    wb.save(r'.\data\ANNUAL_list_JOB.xlsx')   
+    wb.active = ws # type: ignore
+    wb.save(r'.\data\ANNUAL_list_JOB.xlsx')    # type: ignore
     print(e)    
     time.sleep(10)
