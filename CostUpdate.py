@@ -1,266 +1,6 @@
 
-# from cgitb import text
-# from tkinter import *
-# from tkinter import messagebox
-
-# import pyautogui
-# import time
-# from openpyxl import load_workbook
-
-# running = True
-# def update_progress(new_progress):
-#     progress_label.config(text=new_progress)
-#     mainFrame.update()
-
-# # menu 찾기
-# def cost_menu_image_check(sel_image, sel_item, sel_cost_type):
-#     try:
-#         check_image = pyautogui.locateOnScreen(sel_image)
-#         if check_image is not None:
-#             center=pyautogui.center(check_image)
-#             pyautogui.doubleClick(center)
-#             time.sleep(0.8)
-#             pyautogui.write(sel_item, interval=0.1)
-#             time.sleep(0.8)
-#             pyautogui.hotkey('tab')
-#             time.sleep(0.8)
-#             # cost type 입력
-#             pyautogui.write(sel_cost_type, interval=0.1)  
-#             time.sleep(0.8)
-#             pyautogui.hotkey('tab')  
-#             time.sleep(0.8)
-#             fi = pyautogui.locateOnScreen(r'.\images\find.png')
-#             fic = pyautogui.center(fi) # type: ignore
-#             pyautogui.click(fic)                    
-#             time.sleep(1)      
-#         else:
-#             return 0
-#     except:
-#         messagebox.showerror("Error", "오류가 발생했습니다.")
-        
-            
-# def cost_type_3way(cost_3_yes):
-#     try:
-#         check_3way = pyautogui.locateOnScreen(cost_3_yes)
-#         if check_3way != None:
-#             ric = pyautogui.center(check_3way) 
-#             # user defaul control uncheck
-#             time.sleep(0.7)
-#             pyautogui.click(ric.x-130, ric.y)
-                            
-#                             # based on rollup unckeck
-#             time.sleep(0.7)
-#             pyautogui.click(ric.x+130, ric.y)
-#             time.sleep(1)
-#                             # cost 지울지 메세지 나타나남, enter key 입력
-#             pyautogui.hotkey('enter')
-#             time.sleep(1)                                                 
-#                             # based on rollup ckeck
-#             pyautogui.click(ric.x+130, ric.y)                       
-#             time.sleep(1)  
-                            
-#                             # user defaul control check
-#             pyautogui.click(ric.x-130, ric.y)
-#             time.sleep(1)
-                            
-#             pyautogui.hotkey('ctrl','s')
-#             time.sleep(1)
-#             pyautogui.hotkey('ctrl','f4')
-#                         # close_form()    
-#             time.sleep(1)
-#             return 'OK'
-#         else:
-#             return 'NO'
-#     except:
-#         messagebox.showerror("Error", " COST 항목 full check 부분, 오류가 발생했습니다.")
-        
-        
-# def  cost_type_not_default(cost_not_default):
-#     try:
-#         check_not_default =   pyautogui.locateOnScreen(cost_not_default) 
-#         if check_not_default != None:
-        
-#             ri_undefault_c = pyautogui.center(check_not_default)                            
-#             time.sleep(0.9)  
-            
-#             pyautogui.click(check_not_default.x+115, check_not_default.y+10)
-#             time.sleep(0.9)
-            
-#             # cost 지울지 메세지 나타나남, enter key 입력
-#             pyautogui.hotkey('enter')
-#             time.sleep(0.9)
-            
-#             pyautogui.click(check_not_default.x+118, check_not_default.y+10)
-#             time.sleep(0.9)
-#             pyautogui.hotkey('ctrl','s')
-#             # close_form()   
-#             time.sleep(1)
-#             pyautogui.hotkey('ctrl','f4')               
-#             time.sleep(1)
-#             return 'OK'  
-#         else:
-#             return 'NO'
-#     except:
-#         messagebox.showerror("Error", "오류가 발생했습니다.")
-            
-# def cost_type_inventory(cost_type_inventory):
-#     try:
-#         inv_asset = pyautogui.locateOnScreen(cost_type_inventory)
-#         if  inv_asset != None :     
-            
-#             cost_element1 = 'Material'
-#             cost_element2 = 'Material Overhead'
-#             sub_element2 = 'Freight'                           
-            
-#             time.sleep(0.9)
-#             # cost_btn = pyautogui.locateOnScreen(resource_path(r'images\costs_btn.png'))
-#             cost_btn = pyautogui.locateOnScreen(r'.\images\costs_btn.png')
-#             cost_btn_center=pyautogui.center(cost_btn) # type: ignore
-#             pyautogui.click(cost_btn_center)
-#             time.sleep(0.9)                               
-#             pyautogui.write(cost_element1, interval=0.1)
-#             time.sleep(0.9)
-#             pyautogui.hotkey('tab')
-#             pyautogui.write(cost_element1, interval=0.1)
-#             time.sleep(0.9)                        
-#             pyautogui.press('tab', presses=3, interval=0.5) 
-#             time.sleep(0.9)
-#             # Material cost 입력
-#             pyautogui.write(str(0), interval=0.1)
-#             time.sleep(0.9)
-#             pyautogui.hotkey('tab')
-#             time.sleep(0.9)
-#             pyautogui.hotkey('tab')
-#             # material overhead
-#             pyautogui.write(cost_element2, interval=0.1)
-#             time.sleep(0.5)
-#             pyautogui.hotkey('tab')
-#             # sub element
-#             time.sleep(0.5)
-#             pyautogui.write(sub_element2, interval=0.1)
-#             time.sleep(0.5)
-#             pyautogui.hotkey('tab')
-#             time.sleep(0.5)
-#             pyautogui.press('tab', presses=2, interval=0.3) 
-#             # Material Overhead rate 입력
-#             time.sleep(0.9)                        
-#             pyautogui.write(str(0), interval=0.1)
-#             time.sleep(0.9)
-#             pyautogui.hotkey('tab')                        
-#             time.sleep(0.9)
-#             pyautogui.hotkey('ctrl','s')
-#             # close_form()   
-#             time.sleep(0.9)
-#             pyautogui.hotkey('ctrl','f4')
-#             time.sleep(0.9)
-#             pyautogui.hotkey('ctrl','f4')
-#             return 'OK'
-#         else:
-#             return 'NO'
-#     except:
-#         messagebox.showerror("Error", "오류가 발생했습니다.")
-        
-# def on_escape(event):
-#     mainFrame.destroy()    
-
-# def count_total_records():
-#     wb = load_workbook(r'.\data\ANNUAL_list.xlsx')
-#     ws = wb['Sheet1']
-#     total_records = sum(1 for _ in ws.iter_rows()) - 1  # 엑셀 헤더 행을 제외한 전체 레코드 수 계산
-#     return total_records
-
-            
-# def annual_reset():
-#     try:
-#         # label_result = Label(mainFrame, text='Annual Cost Reset')
-#         label_result.config(text='Annual Cost Reset')
-#         # label_result.grid(row=1, column=2)
-#         wb = load_workbook(r'.\data\ANNUAL_list.xlsx')
-#         ws = wb['Sheet1']
-#         total_records = count_total_records()
-        
-#         rec = 0
-#         time.sleep(3)
-#         running = True
-#         job = pyautogui.confirm(text=' Annual Cost Reset 작업을 진행 하시겠습니까 ?', buttons=['OK', 'Cancel'])
-#         progress_label.config(text='진행 중...')
-#         mainFrame.update()
-        
-#         if job =='OK': 
-#             for row in ws:
-#                 if running == False:
-#                     break
-#                 for cell in row:
-#                     if len(cell.value) == 0:
-#                         running=False
-#                         break
-                    
-#                     cost_menu_image_check(item_mp, cell.value, 'Annual')
-#                     progress_label.config(text=cell.value)
-#                     mainFrame.update()
-                    
-#                     r_check1 = cost_type_3way(cost_3_yes)
-#                     if r_check1 == 'NO':
-#                         r_check2 = cost_type_not_default(cost_not_default)
-#                         if r_check2 == 'NO':
-#                             r_check3 = cost_type_inventory(cost_type_inventory)
-#                             if r_check3 == 'NO':
-#                                 pyautogui.hotkey('ctrl','f4')
-#                                 time.sleep(1)
-#                                 pyautogui.hotkey('ctrl','f4')
-#                                 time.sleep(1)   
-#                                 running =False
-#                                 break
-#                     update_progress(f'진행 상황: {idx}/{total_records}')        
-#         else:
-#             return 0;        
-#     except:
-#         messagebox.showerror('Error','오류가 발생 했습니다.')
-        
-        
-# mainFrame = Tk()
-# mainFrame.title('Item Cost 관련 Program')
-
-
-# item_mp =r'.\images\item_cost1.png'   
-# cost_3_yes = r'.\images\basedroll1.png' 
-# cost_not_default = r'.\images\item_cost_not_default.png' 
-# cost_type_inventory = r'.\images\inv_asset.png' 
-# # image1 = ImageTk.PhotoImage(Image.open(r'D:\python_dev\item_cost_update\images\basedroll.png'))
-# # image2 = ImageTk.PhotoImage(Image.open(r'D:\python_dev\item_cost_update\images\basedroll1.png'))
-# # image3 = ImageTk.PhotoImage(Image.open(r'D:\python_dev\item_cost_update\images\close.png'))
-# # image4 = ImageTk.PhotoImage(Image.open(r'D:\python_dev\item_cost_update\images\item_cost1.png'))
-# # image5 = ImageTk.PhotoImage(Image.open(r'D:\python_dev\item_cost_update\images\screen_max.png'))
-
-# cost_element1 = 'Material'
-# cost_element2 = 'Material Overhead'
-# sub_element2 = 'Freight'
-
-
-# lbl1 = Label(mainFrame, text='Standard Cost 관련 작업입니다. 해당 프로그램을 ERP 화면과 중복되 않도록 이동하세요 !!!', fg='red')
-# lbl1.grid(row=0, column=0)
-
-# btn1 = Button(mainFrame, text='Annual Cost Reset',padx=50,pady=20,  command=annual_reset)
-# btn2 = Button(mainFrame, text='Annual Cost Update',padx=50,pady=20)
-# btn3 = Button(mainFrame, text='Pending /Frozen Cost Update',padx=50,pady=20)
-# btn4 = Button(mainFrame, text='Frozen Cost Update',padx=50,pady=20)
-
-# btn1.grid(row=1, column=0)
-# btn2.grid(row=2, column=0)
-# btn3.grid(row=3, column=0)
-# btn4.grid(row=4, column=0)
-
-# mainFrame.bind('<Escape>', on_escape)
-
-# progress_label = Label(mainFrame, text='진행 상황', fg='blue')
-# progress_label.grid(row=2, column=1)
-
-# label_result = Label(mainFrame, text='', fg='green')
-# label_result.grid(row=3, column=1)
-
-# mainloop()
-
 from cgitb import text
+import glob
 from tkinter import *
 from tkinter import messagebox
 
@@ -268,6 +8,21 @@ import pyautogui
 import time
 from openpyxl import load_workbook
 import datetime as dt
+import configparser
+
+config = configparser.ConfigParser()
+config.read(r'.\data\config.ini')
+
+ct_x1 = config.getint('Screen_3WAY', 'X1')
+ct_x2 = config.getint('Screen_3WAY', 'X2')
+ct_x3 = config.getint('Screen_3WAY', 'X3')
+ct_x4 = config.getint('Screen_3WAY', 'X4')
+
+dx1 = config.getint('Screen_Not_Default', 'DX1')
+dy1 = config.getint('Screen_Not_Default', 'DY1')
+dx2 = config.getint('Screen_Not_Default', 'DX2')
+dy2 = config.getint('Screen_Not_Default', 'DY2')
+
 running = True
 
 def on_escape(event):
@@ -316,8 +71,8 @@ def cost_menu_image_check(sel_image, sel_item, sel_cost_type):
 def annual_reset():
     try:
         label_result.config(text='Annual Cost Reset')
-        # wb = load_workbook(r'.\data\ANNUAL_list.xlsx')
-        wb = load_workbook(r'C:\ITEM_COST_UPDATE\data\ANNUAL_list.xlsx')
+        wb = load_workbook(r'.\data\ANNUAL_list.xlsx')
+        # wb = load_workbook(r'C:\ITEM_COST_UPDATE\data\ANNUAL_list.xlsx')
         ws = wb['Sheet1']
         # total_records = count_total_records(u_file)  # 전체 레코드 수 계산
         total_records = ws.max_row
@@ -340,6 +95,9 @@ def annual_reset():
                     break
 
                 item = cell_values[0]
+                
+                update_progress(f'진행 상황: {idx}/{total_records} : {item}')  # 현재 진행 상황 업데이트
+                
                 check_menu_YN= cost_menu_image_check(item_mp, item, 'Annual')
                 if check_menu_YN =='Y':
                     # menu 가 있는 경우
@@ -360,9 +118,11 @@ def annual_reset():
                                 running = False
                                 break
 
-                    update_progress(f'진행 상황: {idx}/{total_records}')  # 현재 진행 상황 업데이트
+                    
                 else:
-                    update_progress(f'Item 여부 확인 필요, Error : {idx}/{total_records}{item}')  # 현재 진행 상황 업데이트    
+                    update_progress(f'해당 Item의 Annual Type 여부 확인 필요, Error : {idx}/{total_records}{item}')  # 현재 진행 상황 업데이트    
+                    break
+            messagebox.showinfo('Annual Reset', '작업 완료')    
         else:
             return 0
 
@@ -432,6 +192,7 @@ def annual_update():
         job = pyautogui.confirm(text='Annual Cost Update 작업을 진행 하시겠습니까 ?', buttons=['OK', 'Cancel'])
         progress_label.config(text='Annual Cost Update 진행 중...')
         mainFrame.update()
+        
         if job == 'OK':
             rec = 0
             time.sleep(3)
@@ -439,12 +200,12 @@ def annual_update():
             for row in ws.iter_rows():
                 rec += 1
                 
-                update_progress(f'Annual Update 진행 상황: {rec}/{total_records}')  # 현재 진행 상황 업데이트
-                
                 item = str(row[0].value)
                 cost_type = str(row[1].value)
                 cost = str(row[2].value)
                 overhead = str(row[3].value)
+                
+                update_progress(f'Annual Update 진행 상황: {rec}/{total_records} , {item}')  # 현재 진행 상황 업데이트
                 # 
                 cost_menu_image_check(item_mp, item, cost_type)
                 # 해당 cost type 이 존재 하는 경우
@@ -463,34 +224,47 @@ def annual_update():
                     # cost type 이 존재 하는 경우, inventory asset 인지 확인 한다.
                     check_inv_YN = cost_type_inventory(cost_type_inventory_img,cost, overhead )
                     if check_inv_YN == 'N':
-                        update_progress(f'Annual Update 중 Error : {rec}/{total_records} {item}') 
+                        update_progress(f'Annual Update 중 Error : {rec}/{total_records} , {item}') 
                         break
-            
+            messagebox.showinfo('Annaul Update', 'Annual Cost update 완료')
     except:
         messagebox.showerror(('Error',' Annual Cost Update error')) 
         
 def cost_type_3way(cost_3_yes):
     try:
+        global ct_x1
+        global ct_x2
+        global ct_x3
+        global ct_x4
+        global dx1
+        global dx2
+        global dy1
+        global dy2
+        
         check_3way = pyautogui.locateOnScreen(cost_3_yes)
         if check_3way != None:
             ric = pyautogui.center(check_3way) 
             # user defaul control uncheck
             time.sleep(0.7)
-            pyautogui.click(ric.x-130, ric.y)
+            # pyautogui.click(ric.x-130, ric.y)
+            pyautogui.click(ric.x+ct_x1, ric.y)
                             
                             # based on rollup unckeck
             time.sleep(0.7)
-            pyautogui.click(ric.x+130, ric.y)
+            # pyautogui.click(ric.x+130, ric.y)
+            pyautogui.click(ric.x+ct_x2, ric.y)
             time.sleep(1)
                             # cost 지울지 메세지 나타나남, enter key 입력
             pyautogui.hotkey('enter')
             time.sleep(1)                                                 
                             # based on rollup ckeck
-            pyautogui.click(ric.x+130, ric.y)                       
+            # pyautogui.click(ric.x+130, ric.y)
+            pyautogui.click(ric.x+ct_x3, ric.y)                       
             time.sleep(1)  
                             
                             # user defaul control check
-            pyautogui.click(ric.x-130, ric.y)
+            # pyautogui.click(ric.x-130, ric.y)
+            pyautogui.click(ric.x+ct_x4, ric.y)
             time.sleep(1)
                             
             pyautogui.hotkey('ctrl','s')
@@ -509,20 +283,31 @@ def  cost_type_not_default(cost_not_default_png):
     # default control 이 disable 이고 inventory asset 과 baseed on rollup 은 check 되어 있는 경우 
     # Annual Cost reset process
     try:
+        global ct_x1
+        global ct_x2
+        global ct_x3
+        global ct_x4
+        global dx1
+        global dx2
+        global dy1
+        global dy2
+        
         check_not_default =   pyautogui.locateOnScreen(cost_not_default_png) 
         if check_not_default != None:
         
             ri_undefault_c = pyautogui.center(check_not_default)                            
             time.sleep(0.9)  
             
-            pyautogui.click(ri_undefault_c.x+115, ri_undefault_c.y+10)
+            # pyautogui.click(ri_undefault_c.x+115, ri_undefault_c.y+10)
+            pyautogui.click(ri_undefault_c.x+dx1, ri_undefault_c.y+dy1)
             time.sleep(0.9)
             
             # cost 지울지 메세지 나타나남, enter key 입력
             pyautogui.hotkey('enter')
             time.sleep(0.9)
             
-            pyautogui.click(ri_undefault_c.x+118, ri_undefault_c.y+10)
+            # pyautogui.click(ri_undefault_c.x+118, ri_undefault_c.y+10)
+            pyautogui.click(ri_undefault_c.x+dx2, ri_undefault_c.y+dy2)
             time.sleep(0.9)
             pyautogui.hotkey('ctrl','s')
             # close_form()   
@@ -623,6 +408,7 @@ def cost_update_function(cost_value, overhead_rate):
 def pending_update():
     try:
         running = True
+        label_result.config(text='Pending Cost Update...')
         wb = load_workbook(r'.\data\pending.xlsx', data_only= True, read_only=True)
         ws = wb['Sheet1']
         total_records = ws.max_row
@@ -642,11 +428,13 @@ def pending_update():
             global sub_element2 
             for row in ws.iter_rows():
                 rec += 1
-                update_progress(f'Pending Cost Update 진행 상황: {rec}/{total_records}')  # 현재 진행 상황 업데이트
+                
                 item = str(row[0].value)
                 cost_type = str(row[1].value)
                 cost = str(row[2].value)
                 overhead = str(row[3].value)
+                
+                update_progress(f'Pending Cost Update 진행 상황: {rec}/{total_records} , {item}')  # 현재 진행 상황 업데이트
                 
                 cost_menu_image_check(item_mp, item, cost_type)
                 check_not_cost = item_cost_type_not_found()  
@@ -692,10 +480,10 @@ def pending_update():
                     # check_inv_YN = cost_type_inventory(cost_type_inventory_img,cost, overhead )
                     check_cost_YN = cost_update_function(cost, overhead)
                     if check_cost_YN == 'Y':
-                        update_progress(f'Pending Update 중  : {rec}/{total_records} {item}') 
+                        update_progress(f'Pending Update 중  : {rec}/{total_records} , {item}') 
                         running = True
                     else:    
-                        update_progress(f'Pending Update 중 Error : {rec}/{total_records} {item}') 
+                        update_progress(f'Pending Update 중 Error : {rec}/{total_records} , {item}') 
                         running = False
                         break    
             if running == True:
@@ -710,28 +498,28 @@ def pending_update():
 # Frozen cost update 실행하기
 def Frozen_update(value=None):
     try:
-        if value == 'M':
-             job = pyautogui.confirm(text=' Pending Cost Update 작업을 진행 하시겠습니끼?', buttons =['OK','Cancel'])# type: ignore  
-        else:
-            job='OK'
-        if job != 'OK':
-            return 0
-                             
         wb = load_workbook(r'.\data\pending.xlsx', data_only= True, read_only=True)
         ws = wb['Sheet1']
         total_records = ws.max_row
         time.sleep(1)
         
+        label_result.config(text='Item Cost Update...')
+        if value == 'M':
+             job = pyautogui.confirm(text=' Item Cost Update 작업을 진행 하시겠습니끼?', buttons =['OK','Cancel'])# type: ignore  
+        else:
+            job='OK'
+        if job != 'OK':
+            return 0
+        
+        rec = 0        
         std_menu = pyautogui.locateOnScreen(r'.\images\standard.png')
-        rec = 0
-        time.sleep(2)
+        # time.sleep(2)
       
         if std_menu != None:
             pyautogui.doubleClick(pyautogui.center(std_menu))     
             
             time.sleep(0.5)
-            rec=0
-            
+                    
             for row_f in ws.iter_rows():
                 rec += 1                
                  
@@ -747,7 +535,7 @@ def Frozen_update(value=None):
                 time.sleep(1)    
                 # update_menu = pyautogui.locateOnScreen(resource_path(r'images\nov_cost_update.png'), confidence=0.8)
                 # update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png',confidence=0.8)
-                update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png')
+                update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png', confidence=0.8)
                 # time.sleep(2)
                 if update_menu is not None:
                    
@@ -857,11 +645,11 @@ progress_label.grid(row=2, column=1)
 label_result = Label(mainFrame, text='', fg='green')
 label_result.grid(row=3, column=1)
 lbl3 = Label(mainFrame, text='Annual 초기화 관련 파일명 : ANNUAL_list.xlsx', fg='blue')
-lbl4 = Label(mainFrame, text='Annual 초기화 관련 파일명 : ANNUAL_UPDATE.xlsx', fg='blue') 
-lbl5 = Label(mainFrame, text= ' Pending Cost 관련은 : pending.xlsx' ,fg='blue')
+lbl4 = Label(mainFrame, text='Annual Update 관련 파일명 : ANNUAL_UPDATE.xlsx', fg='blue') 
+lbl5 = Label(mainFrame, text= 'Pending Cost 관련은 : pending.xlsx' ,fg='blue')
 
-lbl3.grid(row=6, column=1)
-lbl4.grid(row=7, column=1)
-lbl5.grid(row=8, column=1)
+lbl3.grid(row=6, column=0)
+lbl4.grid(row=7, column=0)
+lbl5.grid(row=8, column=0)
 
 mainloop()        
