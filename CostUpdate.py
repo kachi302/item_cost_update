@@ -1,8 +1,11 @@
 
 from cgitb import text
 import glob
-from tkinter import *
-from tkinter import messagebox
+
+
+from tkinter import messagebox, Tk
+
+import tkinter as tk
 
 import pyautogui
 import time
@@ -80,7 +83,7 @@ def annual_reset():
         rec = 0
         time.sleep(3)
         running = True
-        job = pyautogui.confirm(text='Annual Cost Reset 작업을 진행 하시겠습니까 ?', buttons=['OK', 'Cancel'])
+        job = pyautogui.confirm(text='Annual Cost Reset 작업을 진행 하시겠습니까 ?', buttons=['OK', 'Cancel']) # type: ignore
         progress_label.config(text='진행 중...')
         mainFrame.update()
 
@@ -189,7 +192,7 @@ def annual_update():
         ws = wb['Sheet1']
         # total_records = count_total_records(u_file)  # 전체 레
         total_records = ws.max_row
-        job = pyautogui.confirm(text='Annual Cost Update 작업을 진행 하시겠습니까 ?', buttons=['OK', 'Cancel'])
+        job = pyautogui.confirm(text='Annual Cost Update 작업을 진행 하시겠습니까 ?', buttons=['OK', 'Cancel'])   # type: ignore
         progress_label.config(text='Annual Cost Update 진행 중...')
         mainFrame.update()
         
@@ -228,7 +231,7 @@ def annual_update():
                         break
             messagebox.showinfo('Annaul Update', 'Annual Cost update 완료')
     except:
-        messagebox.showerror(('Error',' Annual Cost Update error')) 
+        messagebox.showerror('Error',' Annual Cost Update error') 
         
 def cost_type_3way(cost_3_yes):
     try:
@@ -493,7 +496,7 @@ def pending_update():
                     
                     
     except:
-        messagebox.showerror(('Error',' Pending Cost Update error'))             
+        messagebox.showerror('Error',' Pending Cost Update error')
 
 # Frozen cost update 실행하기
 def Frozen_update(value=None):
@@ -586,7 +589,7 @@ def Frozen_update(value=None):
         messagebox.showerror('Error',' Frozen Cost Update error')          
                     
             
-mainFrame = Tk()
+mainFrame = tk.Tk()
 mainFrame.title('Item Cost 관련 Program')
 width = 800  # 창의 너비
 height = 400  # 창의 높이
@@ -621,16 +624,16 @@ cost_element2 = 'Material Overhead'
 sub_element2 = 'Freight'
 
 
-lbl1 = Label(mainFrame, text=' Standard Cost 관련 작업입니다. ', fg='red')
+lbl1 = tk.Label(mainFrame, text=' Standard Cost 관련 작업입니다. ', fg='red')# type: ignore
 lbl1.grid(row=0, column=0)
-lbl2 = Label(mainFrame, text=' 해당 프로그램을 ERP 화면과 중복되지 않도록 이동하세요 !!!', fg='red')
+lbl2 = tk.Label(mainFrame, text=' 해당 프로그램을 ERP 화면과 중복되지 않도록 이동하세요 !!!', fg='red')# type: ignore
 lbl2.grid(row=1, column=0)
 
 
-btn1 = Button(mainFrame, text='Annual Cost Reset',width=30,height=2,  command=annual_reset, activebackground='green')
-btn2 = Button(mainFrame, text='Annual Cost Update',width=30,height=2,  command=annual_update, activebackground='green')
-btn3 = Button(mainFrame, text='Pending /Frozen Cost Update',width=30,height=2,command=pending_update, activebackground='green' )
-btn4 = Button(mainFrame, text='Frozen Cost Update',width=30,height=2 ,command=lambda: Frozen_update('M'), activebackground='green')
+btn1 = tk.Button(mainFrame, text='Annual Cost Reset',width=30,height=2,  command=annual_reset, activebackground='green')# type: ignore
+btn2 = tk.Button(mainFrame, text='Annual Cost Update',width=30,height=2,  command=annual_update, activebackground='green')# type: ignore
+btn3 = tk.Button(mainFrame, text='Pending /Frozen Cost Update',width=30,height=2,command=pending_update, activebackground='green' )# type: ignore
+btn4 = tk.Button(mainFrame, text='Frozen Cost Update',width=30,height=2 ,command=lambda: Frozen_update('M'), activebackground='green')# type: ignore
 
 btn1.grid(row=2, column=0)
 btn2.grid(row=3, column=0)
@@ -639,17 +642,17 @@ btn4.grid(row=5, column=0)
 
 mainFrame.bind('<Escape>', on_escape)
 
-progress_label = Label(mainFrame, text='진행 상황', fg='blue')
+progress_label = tk.Label(mainFrame, text='진행 상황', fg='blue')
 progress_label.grid(row=2, column=1)
 
-label_result = Label(mainFrame, text='', fg='green')
+label_result = tk.Label(mainFrame, text='', fg='green')
 label_result.grid(row=3, column=1)
-lbl3 = Label(mainFrame, text='Annual 초기화 관련 파일명 : ANNUAL_list.xlsx', fg='blue')
-lbl4 = Label(mainFrame, text='Annual Update 관련 파일명 : ANNUAL_UPDATE.xlsx', fg='blue') 
-lbl5 = Label(mainFrame, text= 'Pending Cost 관련은 : pending.xlsx' ,fg='blue')
+lbl3 = tk.Label(mainFrame, text='Annual 초기화 관련 파일명 : ANNUAL_list.xlsx', fg='blue')
+lbl4 = tk.Label(mainFrame, text='Annual Update 관련 파일명 : ANNUAL_UPDATE.xlsx', fg='blue') 
+lbl5 = tk.Label(mainFrame, text= 'Pending Cost 관련은 : pending.xlsx' ,fg='blue')
 
 lbl3.grid(row=6, column=0)
 lbl4.grid(row=7, column=0)
 lbl5.grid(row=8, column=0)
 
-mainloop()        
+mainFrame.mainloop()        
