@@ -351,7 +351,9 @@ try:
                             # print(item ,'peingind cost 있는 경우 Invetnroy Asset')
                             ws['E'+str(rec)]='Inventory Asset Completed'
                             print(item," Pending Cost Update 실행 시간 :", time.time() - start)      
-            
+            else:
+                print(item," Item_cost1.prn  Not Found!")      
+                
         # cost update process
         time.sleep(1)
         print('Frozen cost update')
@@ -379,8 +381,8 @@ try:
                 cost_remark = 'KRK_'+ item_code+'_'+x.strftime('%Y%m%d%H%M')            
                 time.sleep(1)    
                 # update_menu = pyautogui.locateOnScreen(resource_path(r'images\nov_cost_update.png'), confidence=0.8)
-                # update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png',confidence=0.8)
-                update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png')
+                update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png',confidence=0.8)
+                #update_menu = pyautogui.locateOnScreen(r'.\images\nov_cost_update.png')
                 time.sleep(1)
                 if update_menu is not None:
                     update_menu_cen = pyautogui.center(update_menu)

@@ -1,7 +1,9 @@
 
+import sys
+import cgitb
 from cgitb import text
 import glob
-
+cgitb.enable()
 
 from tkinter import messagebox, Tk
 
@@ -222,7 +224,7 @@ def annual_update():
                         cost_type_inventory(cost_type_inventory_img,cost, overhead )
                         
                 else:
-                    # cost type 이 존해 하지 않는 경우
+                    # cost type 이 존해 경우
                     # messagebox.showerror("Error", " N, COST 항목 full check 부분, No 발생했습니다.")
                     # cost type 이 존재 하는 경우, inventory asset 인지 확인 한다.
                     check_inv_YN = cost_type_inventory(cost_type_inventory_img,cost, overhead )
@@ -349,25 +351,25 @@ def cost_update_function(cost_value, overhead_rate):
         cost_btn = pyautogui.locateOnScreen(r'.\images\costs_btn.png')
         cost_btn_center=pyautogui.center(cost_btn) # type: ignore
         pyautogui.click(cost_btn_center)
-        time.sleep(0.9)                               
+        time.sleep(1.5)                               
         
         pyautogui.write(cost_element1, interval=0.1)
-        time.sleep(0.2)
+        time.sleep(0.5)
         
         pyautogui.hotkey('tab')
         pyautogui.write(cost_element1, interval=0.1)
-        time.sleep(0.2)           
+        time.sleep(0.5)           
                     # activity 칼럼 이동                  
         pyautogui.press('tab')
-        time.sleep(0.2)     
+        time.sleep(0.5)     
         # basis 칼럼                   
         pyautogui.press('tab')
-        time.sleep(0.3)
+        time.sleep(0.5)
         
         pyautogui.write('Item', interval=0.1) 
-        time.sleep(0.3)
+        time.sleep(0.5)
         pyautogui.hotkey('tab')
-        time.sleep(0.2)
+        time.sleep(0.5)
         # Material cost 입력
         # pyautogui.write(str(0), interval=0.1)
         pyautogui.write(str(cost_value), interval=0.1)
@@ -381,7 +383,7 @@ def cost_update_function(cost_value, overhead_rate):
         pyautogui.hotkey('tab')
         # sub element
         pyautogui.write(sub_element2, interval=0.1)
-        time.sleep(0.4)
+        time.sleep(0.6)
         pyautogui.hotkey('tab')
         time.sleep(0.5)
         pyautogui.press('tab') 
@@ -389,18 +391,18 @@ def cost_update_function(cost_value, overhead_rate):
         pyautogui.write('Total Value', interval=0.1)
         # Material overhead rate 입력         
         pyautogui.hotkey('tab')
-        time.sleep(0.3)
+        time.sleep(0.6)
         pyautogui.write(str(overhead_rate), interval=0.1)
-        time.sleep(0.2)
+        time.sleep(0.6)
         pyautogui.hotkey('tab')                        
-        time.sleep(0.3)
+        time.sleep(0.5)
         pyautogui.hotkey('ctrl','s')
         # close_form()   
-        time.sleep(0.9)
+        time.sleep(1)
         pyautogui.hotkey('ctrl','f4')
-        time.sleep(0.9)
+        time.sleep(1)
         pyautogui.hotkey('ctrl','f4')
-        time.sleep(0.5)
+        time.sleep(1)
         # pyautogui.keyDown('Enter')
         return 'Y'
     

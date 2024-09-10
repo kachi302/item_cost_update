@@ -65,7 +65,7 @@ try:
                 break            
             
             for cell in row:             # type: ignore
-                        
+                
                 if len(cell.value) == 0 :
                     running = False
                     break            
@@ -76,9 +76,10 @@ try:
                 rec += 1
                 time.sleep(0.5)
                 
-                # item_mp = pyautogui.locateOnScreen(resource_path(r'images\item_cost1.png'), confidence=0.7)     # type: ignore
+                #item_mp = pyautogui.locateOnScreen(resource_path(r'images\item_cost1.png'), confidence=0.7)     # type: ignore
                 # cost menu click
-                item_mp = pyautogui.locateOnScreen(r'.\images\item_cost1.png')                               
+                #item_mp = pyautogui.locateOnScreen(r'.\images\item_cost1.png')                               
+                item_mp = pyautogui.locateOnScreen(r'.\images\item_cost1.png', confidence=0.7)     # type: ignore
                 print(rec)
                 if item_mp != None:
                     # default 가 check 되어 있는 경우
@@ -104,7 +105,7 @@ try:
                     fi = pyautogui.locateOnScreen(r'.\images\find.png')
                     fic = pyautogui.center(fi) # type: ignore
                     pyautogui.click(fic)                    
-                    time.sleep(1)      
+                    time.sleep(2)      
                     # cost 화면 load     
                     # ri= pyautogui.locateOnScreen('basedroll1.png')
                     # ri= pyautogui.locateOnScreen(resource_path(r'images\basedroll1.png'))
@@ -215,7 +216,7 @@ try:
                                 time.sleep(0.9)
                                 pyautogui.hotkey('ctrl','f4')
                                 time.sleep(0.9)
-                                pyautogui.hotkey('ctrl','f4')
+                               # pyautogui.hotkey('ctrl','f4')
                                 print(cell.value ,'Invetnroy Asset')
                                 ws['B'+str(rec)]='Inventory Asset Completed'
                                 
