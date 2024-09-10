@@ -8,7 +8,7 @@ a = Analysis(
     ['Annual_Cost_Reset.py'],
     pathex=[],
     binaries=[],
-    datas=[('images/*.png', 'images')],
+    datas=[('images/*.png', 'images'), ('data/*.*', 'data')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

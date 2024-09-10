@@ -5,10 +5,10 @@ block_cipher = None
 
 
 a = Analysis(
-    ['Frozen_cost_update.py'],
+    ['Annual_Cost_Resete.py'],
     pathex=[],
     binaries=[],
-    datas=[('images/*.png', 'images'), ('data/*.*', 'data')],
+    datas=[('images/*.png', 'images'), ('data/*', 'data')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -26,7 +26,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='Frozen_cost_update',
+    name='Annual_Cost_Resete',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -46,5 +46,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='Frozen_cost_update',
+    name='Annual_Cost_Resete',
 )
