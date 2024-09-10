@@ -66,7 +66,8 @@ try:
             
             for cell in row:             # type: ignore
                 
-                if len(cell.value) == 0 :
+                if len(cell.value) == 0 : # type: ignore
+                
                     running = False
                     break            
                     
@@ -89,7 +90,7 @@ try:
                     time.sleep(0.8)
                     # pyautogui.write('10001285-001', interval=0.1)
                     # item code 입력
-                    pyautogui.write(cell.value, interval=0.1)
+                    pyautogui.write(cell.value, interval=0.1) # type: ignore
                     time.sleep(0.8)
                     pyautogui.hotkey('tab')
                     time.sleep(0.8)
