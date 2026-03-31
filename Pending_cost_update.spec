@@ -5,10 +5,10 @@ block_cipher = None
 
 
 a = Analysis(
-    ['Pending_Cost_update.py'],
+    ['pending_cost_update.py'],
     pathex=[],
     binaries=[],
-    datas=[('images/*.png', 'images'), ('data/*.*', 'data')],
+    datas=[('images/*.png', 'images'), ('data/*.ini', 'data')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -26,7 +26,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='Pending_Cost_update',
+    name='pending_cost_update',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -46,5 +46,5 @@ coll = COLLECT(
     strip=False,
     upx=True,
     upx_exclude=[],
-    name='Pending_Cost_update',
+    name='pending_cost_update',
 )

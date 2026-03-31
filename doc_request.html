@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>증명서 요청 등록</title>
+<style>
+  :root { --bg:#0b1020; --panel:#121831; --accent:#4da3ff; --muted:#8ea3b0; --ok:#12b886; --warn:#ffa94d; --err:#ff6b6b; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background:linear-gradient(180deg,var(--bg),#0e1530 30%,#0a0f22 100%); color:#eaf2ff; }
+  .container { max-width:1100px; margin:48px auto; padding:0 20px; }
+  .card { background: var(--panel); border:1px solid rgba(255,255,255,0.06); border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,0.35); }
+  h1 { font-size:24px; margin:0 0 8px; letter-spacing: -0.2px; }
+  .sub { color: var(--muted); margin-bottom:20px; }
+  .grid { display:grid; gap:12px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
+  .field { display:flex; flex-direction:column; gap:6px; }
+  label { font-size:13px; color:#cbd6e6; }
+  input[type="text"], input[type="number"], select, textarea {
+    background: #0d142a; border:1px solid #223052; color:#eaf2ff; padding:10px 12px; border-radius:10px; outline:none;
+  }
+  textarea { min-height:70px; resize: vertical; }
+  .hint { font-size:12px; color:#9fb2c7; }
+  .switch { display:flex; align-items:center; gap:10px; margin-top:8px; }
+  .switch input { width:18px; height:18px; }
+  .table { width:100%; border-collapse: collapse; margin-top:10px; }
+  .table th, .table td { padding:10px; border-bottom:1px dashed rgba(255,255,255,0.08); }
+  .table th { text-align:left; color:#cbd6e6; font-weight:600; }
+  .toolbar { display:flex; justify-content:space-between; align-items:center; margin:14px 0 6px; }
+  .btn { border:1px solid #33507f; background:#0d142a; color:#eaf2ff; padding:10px 14px; border-radius:10px; cursor:pointer; }
+  .btn:hover { background:#0f1833; }
+  .btn.primary { border-color:transparent; background: linear-gradient(90deg, #3a86ff, #00c2ff); color:#081226; font-weight:700; }
+  .btn.ghost { background:transparent; border-color:#2a3b66; }
+  .badge { font-size:12px; padding:4px 8px; border-radius:20px; background:#0e1a37; border:1px solid #2a3b66; color:#b9c7de; }
+  .error { color: var(--err); font-size:12px; margin-top:4px; }
+  .ok    { color: var(--ok);  font-size:12px; margin-top:4px; }
+  .footer { display:flex; gap:12px; margin-top:18px; }
+  .jsonout { white-space: pre; background:#0b1229; border:1px solid #213256; padding:12px; border-radius:12px; overflow:auto; max-height:320px; }
+  @media (max-width: 860px){ .g2,.g3 { grid-template-columns: 1fr; } .toolbar { flex-direction:column; align-items:flex-start; gap:8px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card" role="form" aria-labelledby="title">
+    <h1 id="title">증명서 요청 등록</h1>
+    <div class="sub">국문/영문 선택, 원천징수 연도, 원본 직인 여부를 한 화면에서 등록합니다.</div>
+
+    <!-- 상단(공통) 영역 -->
+    <section aria-label="신청자 정보">
+      <div class="grid g3">
+        <div class="field">
+          <label for="requesterId">요청자 ID</label>
+          <input id="requesterId" name="requesterId" type="text" placeholder="예: 102938" required />
+          <div id="requesterIdHint" class="hint">로그인 연동 시 자동 세팅</div>
+        </div>
+        <div class="field">
+          <label for="subjectId">증명 대상자 ID</label>
+          <input id="subjectId" name="subjectId" type="text" placeholder="예: 102938" required />
+          <div class="hint">본인=요청자 ID 동일</div>
+        </div>
+        <div class="field">
+          <label for="status">요청 상태</label>
+          <input id="status" name="status" type="text" value="PENDING" readonly />
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:12px">
+        <div class="field">
+          <label for="nameKo">성명(국문)</label>
+          <input id="nameKo" type="text" placeholder="홍길동" />
+        </div>
+        <div class="field">
+          <label for="nameEn">성명(영문)</label>
+          <input id="nameEn" type="text" placeholder="Gildong Hong" />
+        </div>
+      </div>
+
+      <div class="grid g2">
+        <div class="field">
+          <label for="deptKo">부서(국문)</label>
+          <input id="deptKo" type="text" placeholder="인사부" />
+        </div>
+        <div class="field">
+          <label for="deptEn">부서(영문)</label>
+          <input id="deptEn" type="text" placeholder="Human Resources" />
+        </div>
+      </div>
+
+      <div class="grid g2">
+        <div class="field">
+          <label for="duty">담당업무(선택)</label>
+          <input id="duty" type="text" placeholder="인사운영 및 채용" />
+        </div>
+        <div class="field">
+          <label for="purpose">용도(선택)</label>
+          <input id="purpose" type="text" placeholder="은행 제출용 등" />
+        </div>
+      </div>
+
+      <div class="grid g3">
+        <div class="field">
+          <label for="addrKo">도로명 주소(국문)</label>
+          <input id="addrKo" type="text" placeholder="서울특별시 중구 세종대로 110" />
+        </div>
+        <div class="field">
+          <label for="addrEn">도로명 주소(영문)</label>
+          <input id="addrEn" type="text" placeholder="110, Sejong-daero, Jung-gu, Seoul" />
+        </div>
+        <div class="field">
+          <label for="postal">우편번호(5자리)</label>
+          <input id="postal" type="text" inputmode="numeric" pattern="^[0-9]{5}$" placeholder="04524" />
+        </div>
+      </div>
+
+      <div class="switch" style="margin-top:8px">
+        <input id="originalReq" type="checkbox" />
+        <label for="originalReq">원본(직인) 요청</label>
+        <span class="badge" id="pickupNote" aria-live="polite" style="display:none">원본 요청 시 인사부 방문 수령</span>
+      </div>
+    </section>
+
+    <!-- 라인아이템(문서) -->
+    <section aria-label="요청 문서 목록" style="margin-top:24px">
+      <div class="toolbar">
+        <div>
+          <strong>요청 문서</strong>
+          <span class="hint">문서 한 행 = DB CERTIFICATE_REQUEST 1행</span>
+        </div>
+        <div>
+          <button class="btn" id="addRowBtn" type="button">+ 행 추가</button>
+          <button class="btn ghost" id="autoYearBtn" type="button" title="원천징수 연도 자동 입력">연도 자동(전년도)</button>
+        </div>
+      </div>
+      <table class="table" aria-describedby="itemsHelp">
+        <thead>
+          <tr>
+            <th style="width:22%">문서 종류</th>
+            <th style="width:16%">언어</th>
+            <th style="width:16%">연도(원천징수)</th>
+            <th style="width:16%">수량</th>
+            <th style="width:22%">비고</th>
+            <th style="width:8%"></th>
+          </tr>
+        </thead>
+        <tbody id="itemsBody"></tbody>
+      </table>
+      <div id="itemsHelp" class="hint">재직/경력 → 언어 필수, 원천징수 → 연도 필수. 수량 1~50.</div>
+      <div id="itemsError" class="error" role="alert" style="display:none"></div>
+    </section>
+
+    <!-- 하단 버튼 -->
+    <div class="footer">
+      <button class="btn" type="button" id="validateBtn">검증</button>
+      <button class="btn primary" type="button" id="submitBtn">제출</button>
+      <button class="btn ghost" type="button" id="resetBtn">초기화</button>
+    </div>
+
+    <!-- 미리보기/응답 -->
+    <section style="margin-top:18px">
+      <div class="hint">전송 페이로드 미리보기(배치). 실제 연동 시 /api/cert-requests/batch 로 POST 권장</div>
+      <pre class="jsonout" id="jsonOut" aria-live="polite"></pre>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  const itemsBody = document.getElementById('itemsBody');
+  const itemsError = document.getElementById('itemsError');
+  const jsonOut = document.getElementById('jsonOut');
+  const pickupNote = document.getElementById('pickupNote');
+
+  // Helpers
+  const lastYear = () => new Date().getFullYear() - 1;
+  const el = (tag, attrs={}, children=[]) => {
+    const x = document.createElement(tag);
+    for (const [k,v] of Object.entries(attrs)) {
+      if (k === 'class') x.className = v;
+      else if (k.startsWith('on') && typeof v === 'function') x.addEventListener(k.substring(2), v);
+      else if (v !== null && v !== undefined) x.setAttribute(k, v);
+    }
+    children.forEach(c => x.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
+    return x;
+  };
+
+  // Row factory
+  function makeRow(defaults={}) {
+    const tr = el('tr');
+
+    // 문서 종류
+    const typeSel = el('select', { 'aria-label': '문서 종류' }, [
+      el('option', { value:'EMP_CERT' }, ['재직증명서']),
+      el('option', { value:'CAREER_CERT' }, ['경력증명서']),
+      el('option', { value:'TAX_WITHHOLD' }, ['근로소득원천징수영수증']),
+    ]);
+    typeSel.value = defaults.typeCode || 'EMP_CERT';
+
+    // 언어
+    const langSel = el('select', { 'aria-label':'언어' }, [
+      el('option', { value:'' }, ['- 선택 -']),
+      el('option', { value:'KO' }, ['국문']),
+      el('option', { value:'EN' }, ['영문']),
+    ]);
+    langSel.value = defaults.language || '';
+
+    // 연도
+    const yearInput = el('input', { type:'number', min:'1900', max:'2999', placeholder:String(lastYear()), 'aria-label':'연도' });
+    if (defaults.year) yearInput.value = defaults.year;
+
+    // 수량
+    const qtyInput = el('input', { type:'number', min:'1', max:'50', value: String(defaults.quantity || 1), 'aria-label':'수량' });
+
+    // 비고
+    const noteInput = el('input', { type:'text', placeholder:'비고(내부메모)', 'aria-label':'비고' });
+
+    // enable/disable logic
+    const updateByType = () => {
+      const t = typeSel.value;
+      const isTax = t === 'TAX_WITHHOLD';
+      langSel.disabled = isTax;
+      yearInput.disabled = !isTax;
+      if (isTax) { if (!yearInput.value) yearInput.value = String(lastYear()); }
+      else { yearInput.value = ''; }
+    };
+    typeSel.addEventListener('change', updateByType);
+
+    // 초기 상태
+    updateByType();
+
+    const delBtn = el('button', { class:'btn', type:'button', title:'행 삭제', onClick: () => tr.remove() }, ['삭제']);
+
+    tr.appendChild(el('td', {}, [typeSel]));
+    tr.appendChild(el('td', {}, [langSel]));
+    tr.appendChild(el('td', {}, [yearInput]));
+    tr.appendChild(el('td', {}, [qtyInput]));
+    tr.appendChild(el('td', {}, [noteInput]));
+    tr.appendChild(el('td', { style:'text-align:right' }, [delBtn]));
+
+    return tr;
+  }
+
+  // 초기 1행
+  itemsBody.appendChild(makeRow());
+
+  // UI events
+  document.getElementById('addRowBtn').addEventListener('click', () => itemsBody.appendChild(makeRow()));
+  document.getElementById('autoYearBtn').addEventListener('click', () => {
+    [...itemsBody.querySelectorAll('tr')].forEach(tr=>{
+      const typeSel = tr.children[0].querySelector('select');
+      const yearInput = tr.children[2].querySelector('input');
+      if (typeSel.value === 'TAX_WITHHOLD') yearInput.value = String(lastYear());
+    });
+  });
+  document.getElementById('originalReq').addEventListener('change', (e)=>{
+    pickupNote.style.display = e.target.checked ? 'inline-block' : 'none';
+  });
+
+  function collectPayload(){
+    const requesterId = document.getElementById('requesterId').value.trim();
+    const subjectId   = document.getElementById('subjectId').value.trim();
+    const nameKo = document.getElementById('nameKo').value.trim();
+    const nameEn = document.getElementById('nameEn').value.trim();
+    const deptKo = document.getElementById('deptKo').value.trim();
+    const deptEn = document.getElementById('deptEn').value.trim();
+    const duty   = document.getElementById('duty').value.trim();
+    const purpose= document.getElementById('purpose').value.trim();
+    const addrKo = document.getElementById('addrKo').value.trim();
+    const addrEn = document.getElementById('addrEn').value.trim();
+    const postal = document.getElementById('postal').value.trim();
+    const originalRequired = document.getElementById('originalReq').checked;
+
+    const items = [];
+    [...itemsBody.querySelectorAll('tr')].forEach(tr=>{
+      const typeCode = tr.children[0].querySelector('select').value;
+      const language = tr.children[1].querySelector('select').value || null;
+      const yearVal  = tr.children[2].querySelector('input').value;
+      const quantity = parseInt(tr.children[3].querySelector('input').value || '1', 10);
+      const notes    = tr.children[4].querySelector('input').value.trim() || null;
+
+      items.push({
+        typeCode, language,
+        requestedYear: yearVal ? parseInt(yearVal, 10) : null,
+        quantity, notes,
+        originalRequired,
+        // 아래 필드들은 서버에서 각 요청행으로 복제 저장(스냅샷) 권장
+        dutyText: duty || null,
+        purposeText: purpose || null,
+        addrKo: addrKo || null,
+        addrEn: addrEn || null,
+        postalCode: postal || null,
+        nameKo, nameEn, deptKo, deptEn
+      });
+    });
+
+    return { requesterId, subjectId, items };
+  }
+
+  function validate(){
+    itemsError.style.display = 'none';
+    itemsError.textContent = '';
+    const { requesterId, subjectId, items } = collectPayload();
+    const errs = [];
+    if (!requesterId) errs.push('요청자 ID는 필수입니다.');
+    if (!subjectId)   errs.push('증명 대상자 ID는 필수입니다.');
+    if (!items.length) errs.push('요청 문서를 1개 이상 추가하세요.');
+
+    items.forEach((it, idx)=>{
+      if (it.typeCode === 'TAX_WITHHOLD') {
+        if (!it.requestedYear) errs.push(`[행 ${idx+1}] 원천징수 연도는 필수입니다.`);
+        if (it.language !== null) errs.push(`[행 ${idx+1}] 원천징수는 언어 선택이 비활성이어야 합니다.`);
+      } else {
+        if (!it.language) errs.push(`[행 ${idx+1}] 재직/경력은 언어 선택이 필수입니다.`);
+        if (it.requestedYear !== null) errs.push(`[행 ${idx+1}] 재직/경력에는 연도를 입력하지 않습니다.`);
+      }
+      if (!(it.quantity>=1 && it.quantity<=50)) errs.push(`[행 ${idx+1}] 수량은 1~50 사이여야 합니다.`);
+    });
+
+    if (errs.length){
+      itemsError.textContent = errs.join(' ');
+      itemsError.style.display = 'block';
+      return false;
+    }
+    return true;
+  }
+
+  function showPreview(){
+    const payload = collectPayload();
+    jsonOut.textContent = JSON.stringify({
+      batch: payload.items.map(it=>({
+        requesterId: Number(payload.requesterId),
+        subjectId: Number(payload.subjectId),
+        typeCode: it.typeCode,
+        language: it.typeCode==='TAX_WITHHOLD' ? 'KO' : it.language, // DB CHECK: 'KO'|'EN'
+        dutyText: it.dutyText,
+        purposeText: it.purposeText,
+        requestedYear: it.typeCode==='TAX_WITHHOLD' ? (it.requestedYear || (new Date().getFullYear()-1)) : null,
+        originalRequired: it.originalRequired ? 'Y':'N',
+        quantity: it.quantity,
+        notes: it.notes,
+        // 주소 스냅샷(권장 컬럼) – DDL 확장 시 CERTIFICATE_REQUEST에 저장
+        roadAddrKo: it.addrKo, roadAddrEn: it.addrEn, postalCode: it.postalCode
+      }))
+    }, null, 2);
+  }
+
+  document.getElementById('validateBtn').addEventListener('click', () => { if (validate()) showPreview(); });
+  document.getElementById('submitBtn').addEventListener('click', async () => {
+    if (!validate()) return;
+    showPreview();
+
+    // 실제 연동 예시:
+    // const res = await fetch('/api/cert-requests/batch', { method:'POST', headers:{'Content-Type':'application/json'}, body:jsonOut.textContent });
+    // const data = await res.json();
+    // jsonOut.textContent = JSON.stringify(data, null, 2);
+
+    alert('검증 통과! 현재는 미리보기만 출력합니다. 백엔드 API 연결 지점을 주석으로 표시했습니다.');
+  });
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    document.querySelector('form')?.reset();
+    itemsBody.innerHTML='';
+    itemsBody.appendChild(makeRow());
+    itemsError.style.display='none';
+    jsonOut.textContent='';
+    document.getElementById('originalReq').checked=false;
+    pickupNote.style.display='none';
+  });
+
+})();
+</script>
+</body>
+</html>
